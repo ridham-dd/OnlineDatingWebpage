@@ -1,0 +1,12 @@
+/* styles.css */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+input[type="text"], button {
+    margin: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+}
