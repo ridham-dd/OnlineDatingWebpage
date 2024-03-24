@@ -1,11 +1,76 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import NavBar from './NavBar';
 
-function Login() {
+
+
+
+function Loginl() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false); // State to toggle password visibility
     const navigate = useNavigate();
+    
+    const location = useLocation();
+    // Check if name is blank or empty and set to "Default User" if it is
+    const nameG = location.state.name;
+    const age = location.state.age;
+    const gender = location.state.gender;
+    const email = location.state.email;
+    const passwordG = location.state.password;
+    const additionalInfo = location.state.additionalInfo;
+    const isLoggedIn = true;
+
+  
+
+    const data = [ 
+        {
+            name: "Santosh",
+            password: "780537"
+        },
+        {
+            name: "xyz",
+            password: "random"
+        }
+     ];
+
+     function addData(){
+        if(nameG.length>1 && passwordG.length1){
+            data.push({
+                name: nameG,
+                password: passwordG
+            })
+        }
+    }
+
+    addData();
+function authenticate(){
+    for (let i = 0; i < data.length; i++) {
+
+    if (data[i].name === name && data[i].password === password) {
+        alert('Success');
+        navigate('/games', {
+            state: {
+                name: nameG,
+                password: passwordG,
+                age: age,
+                gender: gender,
+                email: email,
+                additionalInfo: additionalInfo,
+                isLoggedIn: isLoggedIn
+
+            }
+        });
+        return;
+    } 
+}
+
+    alert('Wrong password');
+    return;
+}
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -66,7 +131,7 @@ function Login() {
     return (
         <div className="form-container" style={formContainerStyles}>
             <h1>Welcome! Log In</h1>
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className="login-form">
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Name:</label>
                     <input
@@ -74,7 +139,7 @@ function Login() {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        style={{...inputStyles, marginLeft: '58px'}}
+                        style={{...inputStyles, marginLeft: '35px'}}
                         placeholder="Enter your name"
                         required
                     />
@@ -104,10 +169,10 @@ function Login() {
                         {isPasswordVisible ? 'Hide' : 'Show'}
                     </button>
                 </div>
-                <button type="submit" style={buttonStyles}>Submit</button>
+                <button type="submit" style={buttonStyles} onClick={authenticate}>Submit</button>
             </form>
         </div>
     );
 }
 
-export default Login;
+export default Loginl;

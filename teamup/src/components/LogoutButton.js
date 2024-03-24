@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth0 } from "@auth0/auth0-react";
+import React from 'react';
 
 const buttonStyles = {
   padding: '7px 15px',
-  margin: '5px 0',
+  marginRight: 'none',
   borderRadius: '10px',
   border: 'white',
   borderStyle: 'solid',
@@ -13,16 +11,17 @@ const buttonStyles = {
   border: 'none',
   cursor: 'pointer'
 }
+const LogoutButton = ({ setIsLoggedIn }) => {
+  const handleLogout = () => {
+    // Perform logout actions here
+    setIsLoggedIn(false); // Update isLoggedIn state to false
+  };
 
-const LoginButton = () => {
-  const { logout, isAuthenticated } = useAuth0();
   return (
-    isAuthenticated && (
-      <button onClick={() => logout()} style={buttonStyles}>
-        Log Out
-      </button>
-    )
-  )
-}
+    <button onClick={handleLogout} style={buttonStyles}>
+      Log Out
+    </button>
+  );
+};
 
-export default LoginButton;
+export default LogoutButton;

@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Chats = () => {
     // Enhanced initial messages with timestamps
+    const location = useLocation();
+    const name = location.state.name;
+    
+    console.log(name);
+    // alert(name);
     const initialMessages = {
         'Alice': [
-            { text: 'Hi, how are you?', timestamp: '2024-03-24 09:00', sender: 'Alice' },
+            { text: `Hi,  how are you?`, timestamp: '2024-03-24 09:00', sender: 'Alice' },
             { text: 'What are you doing this weekend?', timestamp: '2024-03-24 09:01', sender: 'Alice' },
-            { text: 'I might go hiking. You?', timestamp: '2024-03-24 09:10', sender: 'User' },
+            { text: 'I might go hiking. You?', timestamp: '2024-03-24 09:10', sender: name },
             { text: 'Sounds fun! I have a family gathering.', timestamp: '2024-03-24 09:15', sender: 'Alice' }
         ],
         'Bob': [
             { text: 'Hello! Long time no see.', timestamp: '2024-03-24 10:00', sender: 'Bob' },
-            { text: 'Hey! Yeah, it’s been a while.', timestamp: '2024-03-24 10:02', sender: 'User' },
+            { text: 'Hey! Yeah, it’s been a while.', timestamp: '2024-03-24 10:02', sender: name },
             { text: 'Let’s catch up soon.', timestamp: '2024-03-24 10:05', sender: 'Bob' }
         ],
         'Charlie': [
             { text: 'Hey, did you check out that new movie?', timestamp: '2024-03-24 11:00', sender: 'Charlie' },
-            { text: 'Not yet, but I plan to this weekend.', timestamp: '2024-03-24 11:05', sender: 'User' }
+            { text: 'Not yet, but I plan to this weekend.', timestamp: '2024-03-24 11:05', sender: name }
         ]
     };
 
@@ -30,7 +36,7 @@ const Chats = () => {
         const newMsg = {
             text: newMessage,
             timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16),
-            sender: 'User'
+            sender: name
         };
 
         const updatedMessages = {
@@ -52,12 +58,14 @@ const Chats = () => {
     const layoutStyle = {
         display: 'flex',
         height: '100vh',
+        backgroundColor: '#F3E8E2'
     };
 
     const userListStyle = {
         width: '20%',
         borderRight: '2px solid #ccc',
         overflowY: 'auto',
+        backgroundColor: '#D1510A',
         padding: '10px',
     };
 
@@ -66,6 +74,7 @@ const Chats = () => {
         display: 'flex',
         flexDirection: 'column',
         padding: '10px',
+        // backgroundColor: 'gray'
     };
 
     const chatBoxStyle = {
@@ -112,10 +121,12 @@ const Chats = () => {
                 ))}
             </div>
             <div style={chatStyle}>
+                <div style={{backgroundColor: 'gray'}}>
                 <h2>Chat with {currentUser}</h2>
+                </div>
                 <div style={chatBoxStyle}>
                     {messages[currentUser] && messages[currentUser].map((message, index) => (
-                        <div key={index} style={{ ...messageStyle, textAlign: message.sender === 'User' ? 'right' : 'left' }}>
+                        <div key={index} style={{ ...messageStyle, textAlign: message.sender === name ? 'right' : 'left' }}>
                             <div style={senderStyle}>{message.sender}</div>
                             <div>{message.text}</div>
                             <div style={timestampStyle}>{message.timestamp}</div>

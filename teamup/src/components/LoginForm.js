@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
     const [name, setName] = useState('');
@@ -9,6 +10,7 @@ function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -57,6 +59,16 @@ function LoginForm() {
         border: 'none',
         cursor: 'pointer'
     };
+    const navigate = useNavigate();
+    // const data = { name: 'John', age: 30 };
+
+    function handleClick() {
+        navigate("/login",
+        {
+            state: { name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}
+        });
+    }
+    
 
     return (
         <div className="form-container" style={formContainerStyles}>
@@ -64,33 +76,33 @@ function LoginForm() {
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Name:</label >
-                    <input className="form-input" type="text" value={name} onChange={(e) => setName(e.target.value)} style={{...inputStyles, marginLeft: '58px'}}placeholder= "Enter your name" />
+                    <input className="form-input"  type="text" value={name} onChange={(e) => setName(e.target.value)} style={{...inputStyles, marginLeft: '58px'}}placeholder= "Enter your name" required />
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Age:</label>
-                    <input className="form-input" type="number" value={age} onChange={(e) => setAge(e.target.value)} style={{...inputStyles, marginLeft: '74px'}} placeholder= "Enter your age" />
+                    <input className="form-input"  type="number" value={age} onChange={(e) => setAge(e.target.value)} style={{...inputStyles, marginLeft: '74px'}} placeholder= "Enter your age" required />
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Gender:</label>
-                    <input className="form-input" type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{...inputStyles, marginLeft: '42px'}} placeholder= "Enter your gender" />
+                    <input className="form-input"  type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{...inputStyles, marginLeft: '42px'}} placeholder= "Enter your gender" required />
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Gender of player:</label>
-                    <input className="form-input" type="text" value={sig_gender} onChange={(e) => setSigGender(e.target.value)} style={{...inputStyles}} placeholder= "Enter gender of the player you want to match with" />
+                    <input className="form-input"  type="text" value={sig_gender} onChange={(e) => setSigGender(e.target.value)} style={{...inputStyles}} placeholder= "Enter gender of the player you want to match with" required/>
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Email:</label>
-                    <input className="form-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{...inputStyles, marginLeft: '60px'}} placeholder= "Enter your email"  />
+                    <input className="form-input"  type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{...inputStyles, marginLeft: '60px'}} placeholder= "Enter your email" required />
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Password:</label>
-                    <input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{...inputStyles, marginLeft: '25px'}} placeholder= "Enter your password" />
+                    <input className="form-input"  type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{...inputStyles, marginLeft: '25px'}} placeholder= "Enter your password" required />
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Bio:</label>
-                    <textarea className="form-input" value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} style={{ ...inputStyles, marginLeft: '100 px' }} placeholder = "Enter your bio" />
+                    <textarea className="form-input"  value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} style={{ ...inputStyles, marginLeft: '100 px' }} placeholder = "Enter your bio" required />
                 </div>
-                <Link to="/loginl" style={{ textDecoration: 'none' }}>
+                <Link to= "/login" state={{name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}} style={{ textDecoration: 'none' }}>
                     <div className="form-button" style={buttonStyles}>Submit</div>
                 </Link>
             </form>

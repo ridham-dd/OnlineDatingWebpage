@@ -11,7 +11,7 @@ function QuickLinkButton({ to, children }) {
     borderRadius: '40px',
     border: 'none',
     cursor: 'pointer',
-    backgroundColor: isHovered ? 'white' : '#D1510A', // Inverted background color on hover
+    backgroundColor: isHovered ? '#F3E8E2' : '#D1510A', // Inverted background color on hover
     color: isHovered ? '#D1510A' : 'white', // Inverted text color on hover
     transition: 'all 0.5s ease', // Smooth transition for color change
   };

@@ -9,11 +9,30 @@ import typeracerImg from '../assets/TypeRacer_logosvg.png';
 import scrabbleImg from '../assets/scrabble.png';
 import tetrisImg from '../assets/tetris-logo.png';
 import tictactoe from '../assets/TicTacToe.jpeg';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
 
 
 
 const GamesPage = () => {
-    // const { name, age, gender, email, password, additionalInfo } = props.location.state;
+    const location = useLocation();
+    // Check if name is blank or empty and set to "Default User" if it is
+    const name = location.state?.name?.trim() ? location.state.name : "Default User";
+    const age = location.state?.age;
+    const gender = location.state?.gender;
+    const email = location.state?.email;
+    const password = location.state?.password;
+    const additionalInfo = location.state?.additionalInfo;
+    const isLoggedIn = location.state.isLoggedIn;
+    console.log(location.state);
+
+    const [isHoveredA, setIsHoveredA] = useState(false);
+    const [isHoveredB, setIsHoveredB] = useState(false);
+
+   
+    
     const gameContainerStyle = {
         display: 'grid',
         gridTemplateRows: 'repeat(2, 1fr)',
@@ -53,20 +72,59 @@ const GamesPage = () => {
         height: '80px', // Adjust size as needed
         marginBottom: '5px',
     };
+    const navigate = useNavigate();
+    
+    function handleClick() {
+        navigate("/profile",
+        {
+            state: { name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}
+        });
+    }
+
+    function handleClick2() {
+        navigate("/chats",
+        {
+            state: { name: name}
+        });
+    }
 
     return (
         <div style={baap}>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <QuickLinkButton Link to="/profile">
-                    <button style={buttonStyles}>Profile</button>
-                </QuickLinkButton>
-                <QuickLinkButton Link to="/chats">
-                    <button style={buttonStyles}>Chats</button>
-                </QuickLinkButton>
+            <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '33%', marginLeft: '33%', marginBottom: '30px'}}>
+            <Link to="/profile" state={{name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}} style={{ textDecoration: 'none' }}>
+            
+                    <button onMouseEnter={() => setIsHoveredA(true)}
+        onMouseLeave={() => setIsHoveredA(false)} style={{
+            padding: '7px 15px',
+            margin: '5px 0',
+            borderRadius: '40px',
+            border: 'none',
+            cursor: 'pointer',
+            backgroundColor: isHoveredA ? '#F3E8E2' : '#D1510A', // Inverted background color on hover
+            color: isHoveredA ? '#D1510A' : 'white', // Inverted text color on hover
+            transition: 'all 0.5s ease', 
+        }}>Profile</button>
+                
+                </Link>
+                <Link to="/chats" state={{name: name}} style={{ textDecoration: 'none' }}>
+            
+                    <button onMouseEnter={() => setIsHoveredB(true)}
+    onMouseLeave={() => setIsHoveredB(false)} style={{
+        padding: '7px 15px',
+        margin: '5px 0',
+        borderRadius: '40px',
+        border: 'none',
+        cursor: 'pointer',
+        backgroundColor: isHoveredB ? '#F3E8E2' : '#D1510A', // Inverted background color on hover
+        color: isHoveredB ? '#D1510A' : 'white', // Inverted text color on hover
+        transition: 'all 0.5s ease', 
+    }}>Chats</button>
+                
+                </Link>
             </div>
 
             <div style={{ fontFamily: 'Arial, sans-serif' }}>
-                <h1 style={headingStyle}>Hello, Vansh! Choose a Game to Begin.</h1>
+                <h1 style={headingStyle}>Hello, {location.state.name}! Choose a Game to Begin.</h1>
 
                 <div style={gameContainerStyle}>
                     <div style={gameStyle}>
@@ -106,10 +164,8 @@ const GamesPage = () => {
 
                     <div style={gameStyle}>
                         <Link style={{ textDecoration: "none", cursor: "pointer" }} to="/TicTacToe">
-                            <ul style={listStyle}>
-                                <li><button style={buttonStyles}>Play TicTacToe</button></li>
-                                <li><img src={tictactoe} alt="Poker" style={imgStyle} /></li>
-                            </ul>
+                            <h2 style={{ color: "black" }}> Tictactoe</h2>
+                            <img src={tictactoe} alt="Tictactoe" style={imgStyle} />
                         </Link>
                     </div>
                 </div>
@@ -118,14 +174,7 @@ const GamesPage = () => {
     )
 }
 
-const buttonStyles = {
-    padding: '10px 20px',
-    borderRadius: '10px',
-    backgroundColor: '#D1510A',
-    color: 'white',
-    border: 'none',
-    cursor: 'pointer'
-  }
+
 
   const listStyle = {
     listStyleType: 'none',
