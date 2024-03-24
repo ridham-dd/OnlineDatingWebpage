@@ -35,7 +35,7 @@ const footerStyle = {
   width: 'flex',
   backgroundColor: '#D1510A',
   color: 'white',
-  padding: '20px',
+  padding: '10px',
   height: 'flex'
 };
 
@@ -45,8 +45,7 @@ const footerContentStyle = {
 };
 
 const listStyle = {
-  listStyleType: 'none',
-  padding: 0,
+  listStyleType: 'none'
 };
 
 const linkStyle = {

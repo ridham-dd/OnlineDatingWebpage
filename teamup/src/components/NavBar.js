@@ -38,7 +38,7 @@ function NavBar({ isLoggedIn, handleLogout }) {
   return (
     <div className="navbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#D1510A', padding: '10px 30px' }}>
       <Link style={{ textDecoration: 'none', color: 'white', fontFamily: 'Press Start 2P', fontSize: '20px'}} to="/">
-      <img src={logoImage} alt="MatchUp Logo" style={{ height: '50px' }} /> </Link>
+      <img src={logoImage} alt="MatchUp Logo" style={{ height: '35px' , align: 'center', marginTop: '6px'}} /> </Link>
       
       {isLoggedIn ? (
         <div>
