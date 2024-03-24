@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from './NavBar';
 
 function Help() {
     const [name, setName] = useState('');
@@ -55,6 +56,8 @@ function Help() {
     };
 
     return (
+        <div>
+            <NavBar isLoggedIn={true} />
         <div className="form-container" style={formContainerStyles}>
             <h1>Help</h1>
             <form className="login-form" onSubmit={handleSubmit}>
@@ -74,6 +77,7 @@ function Help() {
                     <div className="form-button" style={buttonStyles}>Submit</div>
                 </Link>
             </form>
+        </div>
         </div>
     );
 }

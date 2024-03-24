@@ -3,6 +3,7 @@ import Naysha from '../assets/Naysha.jpeg';
 import Ridham from '../assets/ridham.jpeg';
 import Santosh from '../assets/santosh.jpeg';
 import Vansh from '../assets/Vansh.jpeg';
+import NavBar from './NavBar';
 
 function MeetTheTeam() {
     const imgStyle = {
@@ -20,6 +21,9 @@ function MeetTheTeam() {
     };
 
     return (
+        <div>
+            <NavBar isLoggedIn={false} />
+        
         <div style={teamPageStyle}>
             <h1 className="fadeIn" style={titleStyle}>Meet the Team</h1>
             <h3 style = {{ textAlign: 'center', marginLeft: '200px', marginRight: '200px'}}>Behind every great project is an even greater team. Meet the creative minds behind MatchUp, each bringing their unique talents and passion for gaming and connection to the forefront.</h3>
@@ -52,6 +56,7 @@ function MeetTheTeam() {
                     <hr></hr>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

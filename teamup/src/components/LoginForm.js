@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
 function LoginForm() {
     const [name, setName] = useState('');
@@ -10,7 +11,7 @@ function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
-    
+    const [profileImage, setProfileImage] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -71,6 +72,9 @@ function LoginForm() {
     
 
     return (
+        <div>
+            <NavBar isLoggedIn = {false}/>
+           
         <div className="form-container" style={formContainerStyles}>
             <h1>Sign Up</h1>
             <form className="login-form" onSubmit={handleSubmit}>
@@ -102,10 +106,24 @@ function LoginForm() {
                     <label className="form-label" style={labelStyles}>Bio:</label>
                     <textarea className="form-input"  value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} style={{ ...inputStyles, marginLeft: '100 px' }} placeholder = "Enter your bio" required />
                 </div>
+
+                <div className="form-group" style={formGroupStyles}>
+    <label className="form-label" style={labelStyles}>Profile Image:</label>
+    <input 
+        className="form-input" 
+        type="file" 
+        onChange={(e) => setProfileImage(e.target.files[0])} 
+        style={{...inputStyles, marginLeft: '20px'}} 
+        required 
+    />
+</div>
+
+
                 <Link to= "/login" state={{name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}} style={{ textDecoration: 'none' }}>
                     <div className="form-button" style={buttonStyles}>Submit</div>
                 </Link>
             </form>
+        </div>
         </div>
     );
 }

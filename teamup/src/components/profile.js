@@ -1,6 +1,7 @@
 import React from 'react';
 import profile from '../assets/blank.jpeg';
 import { useLocation } from 'react-router-dom';
+import NavBar from './NavBar';
 
 
 const Profile = () => {
@@ -18,9 +19,12 @@ const Profile = () => {
     const gender = location.state.gender;
     const email = location.state.email;
     const bio = location.state.additionalInfo;
+    const isLoggedIn = location.state.isLoggedIn;
     
 
     return (
+        <div>
+            <NavBar isLoggedIn = {true} />
         <div style={{ textAlign: 'center' }}>
             <h1>Your Profile</h1>
 
@@ -33,6 +37,7 @@ const Profile = () => {
             <p>Your Email: {email}</p>
             <p>Your Bio: {bio}</p>
             </h3>
+        </div>
         </div>
     );
 };

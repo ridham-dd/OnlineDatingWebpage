@@ -20,7 +20,7 @@ function App() {
   return (
     <BrowserRouter> 
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <NavBar isLoggedIn={false} /> {/* Set isLoggedIn to false */}
+        {/* <NavBar isLoggedIn={true} /> */}
         <div style={{ flexGrow: 1 }}>
           <Routes>
             <Route path="/" element={<HomePage />} />

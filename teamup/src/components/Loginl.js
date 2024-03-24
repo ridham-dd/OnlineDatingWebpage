@@ -37,7 +37,7 @@ function Loginl() {
      ];
 
      function addData(){
-        if(nameG.length>1 && passwordG.length1){
+        if(nameG.length>1 && passwordG.length>1){
             data.push({
                 name: nameG,
                 password: passwordG
@@ -46,40 +46,36 @@ function Loginl() {
     }
 
     addData();
+
 function authenticate(){
     for (let i = 0; i < data.length; i++) {
+        if (data[i].name === name && data[i].password === password) {
+            alert('Success');
+            navigate('/games', {
+                state: {
+                    name: nameG,
+                    password: passwordG,
+                    age: age,
+                    gender: gender,
+                    email: email,
+                    additionalInfo: additionalInfo,
+                    isLoggedIn: isLoggedIn
 
-    if (data[i].name === name && data[i].password === password) {
-        alert('Success');
-        navigate('/games', {
-            state: {
-                name: nameG,
-                password: passwordG,
-                age: age,
-                gender: gender,
-                email: email,
-                additionalInfo: additionalInfo,
-                isLoggedIn: isLoggedIn
-
-            }
-        });
-        return;
-    } 
-}
+                }
+            });
+            return;
+        } 
+}   
 
     alert('Wrong password');
+    // navigate('/');
     return;
 }
     
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (name === 'admin' && password === 'admin') {
-            console.log('Login successful:', { name, password });
-            navigate('/games');
-        } else {
-            alert('Invalid credentials. Please try again.');
-        }
+        authenticate()
     };
 
     const togglePasswordVisibility = () => {
@@ -129,6 +125,8 @@ function authenticate(){
     };
 
     return (
+        <div>
+            <NavBar isLoggedIn={false} />
         <div className="form-container" style={formContainerStyles}>
             <h1>Welcome! Log In</h1>
             <form className="login-form">
@@ -169,8 +167,9 @@ function authenticate(){
                         {isPasswordVisible ? 'Hide' : 'Show'}
                     </button>
                 </div>
-                <button type="submit" style={buttonStyles} onClick={authenticate}>Submit</button>
+                <button type="submit" style={buttonStyles} onClick={handleSubmit}>Submit</button>
             </form>
+        </div>
         </div>
     );
 }

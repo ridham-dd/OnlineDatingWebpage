@@ -12,6 +12,7 @@ import tictactoe from '../assets/TicTacToe.jpeg';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import NavBar from './NavBar';
 
 
 
@@ -77,21 +78,24 @@ const GamesPage = () => {
     function handleClick() {
         navigate("/profile",
         {
-            state: { name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}
+            state: { name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo, isLoggedIn: isLoggedIn}
         });
     }
 
     function handleClick2() {
         navigate("/chats",
         {
-            state: { name: name}
+            state: { name: name, isLoggedIn: isLoggedIn}
         });
     }
 
     return (
+        <div>
+            <NavBar isLoggedIn = {true} />
         <div style={baap}>
+            
             <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '33%', marginLeft: '33%', marginBottom: '30px'}}>
-            <Link to="/profile" state={{name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}} style={{ textDecoration: 'none' }}>
+            {/* <Link to="/profile" state={{name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo, isLoggedIn: isLoggedIn}} style={{ textDecoration: 'none' }}>
             
                     <button onMouseEnter={() => setIsHoveredA(true)}
         onMouseLeave={() => setIsHoveredA(false)} style={{
@@ -106,7 +110,7 @@ const GamesPage = () => {
         }}>Profile</button>
                 
                 </Link>
-                <Link to="/chats" state={{name: name}} style={{ textDecoration: 'none' }}>
+                <Link to="/chats" state={{name: name, isLoggedIn:isLoggedIn}} style={{ textDecoration: 'none' }}>
             
                     <button onMouseEnter={() => setIsHoveredB(true)}
     onMouseLeave={() => setIsHoveredB(false)} style={{
@@ -120,7 +124,7 @@ const GamesPage = () => {
         transition: 'all 0.5s ease', 
     }}>Chats</button>
                 
-                </Link>
+                </Link> */}
             </div>
 
             <div style={{ fontFamily: 'Arial, sans-serif' }}>
@@ -170,6 +174,7 @@ const GamesPage = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     )
 }

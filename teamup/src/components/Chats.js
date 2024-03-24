@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import NavBar from './NavBar';
+
 
 const Chats = () => {
     // Enhanced initial messages with timestamps
     const location = useLocation();
     const name = location.state.name;
+    const isLoggedIn = location.state.isLoggedIn;
+    
     
     console.log(name);
     // alert(name);
@@ -104,7 +108,7 @@ const Chats = () => {
 
     const timestampStyle = {
         fontSize: '0.8em',
-        color: '#888',
+        color: 'black',
     };
 
     const senderStyle = {
@@ -112,6 +116,8 @@ const Chats = () => {
     };
 
     return (
+        <div>
+            <NavBar isLoggedIn = {true} />
         <div style={layoutStyle}>
             <div style={userListStyle}>
                 {Object.keys(messages).map((user) => (
@@ -121,17 +127,26 @@ const Chats = () => {
                 ))}
             </div>
             <div style={chatStyle}>
-                <div style={{backgroundColor: 'gray'}}>
+                <div style={{backgroundColor: '#848c91'}}>
                 <h2>Chat with {currentUser}</h2>
                 </div>
                 <div style={chatBoxStyle}>
                     {messages[currentUser] && messages[currentUser].map((message, index) => (
-                        <div key={index} style={{ ...messageStyle, textAlign: message.sender === name ? 'right' : 'left' }}>
-                            <div style={senderStyle}>{message.sender}</div>
-                            <div>{message.text}</div>
-                            <div style={timestampStyle}>{message.timestamp}</div>
-                        </div>
-                    ))}
+                        <div key={index} style={{ ...messageStyle, textAlign: message.sender === name ? 'right' : 'left',backgroundColor:'#F3E8E2'}}>
+                            
+                            <div style={{ 
+                                display: 'inline-block', // This makes the div wrap around the content
+                                backgroundColor: message.sender === name ? '#D1510A' : '#848c91', // Background color
+                                padding: '5px', // Add some padding around the text
+                                borderRadius: '10px', // Optional: adds rounded corners for a chat bubble look
+                             }}>
+
+<div style={senderStyle}>{message.sender}</div>
+            <div>{message.text}</div>
+            <div style={timestampStyle}>{message.timestamp}</div>
+        </div>
+    </div>
+))}
                 </div>
                 <input
                     type="text"
@@ -148,6 +163,7 @@ const Chats = () => {
 
                 <button onClick={sendMessage} style={buttonStyle}>Send</button>
             </div>
+        </div>
         </div>
     );
                     }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import background from '../assets/Home.png';
+import background from '../assets/Homee.png';
 // Assuming you have an image you want to use for the vibrating effect
 import vibratingImage from '../assets/Hearts.png';
+import NavBar from './NavBar';
 
 function HomePage() {
   // State to handle the vibration effect
@@ -15,11 +16,14 @@ function HomePage() {
   };
 
   return (
-    <div style={makeBig} onMouseMove={handleMouseMove}>
+    <div>
+        <NavBar isLoggedIn={false} />
+        <div style={makeBig} onMouseMove={handleMouseMove}>
       <Link to="/signup"><button style={buttonStyle}>Create Account</button></Link>
       <div style={imageContainer}>
         <img src={vibratingImage} alt="Vibrating" style={isVibrating ? vibratingStyle : {}} />
       </div>
+    </div>
     </div>
   );
 }

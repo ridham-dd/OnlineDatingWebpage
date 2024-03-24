@@ -6,12 +6,12 @@ function Footer() {
     <footer style={footerStyle}>
       <div style={footerContentStyle}>
         <div>
-          <h2>Contact Support</h2>
+          <h3>Contact Support</h3>
           <p>Email: <a href="mailto:support@matchup.com" style={linkStyle}>support@matchup.com</a></p>
           <p>Phone: <a href="tel:+1-123-456-7890" style={linkStyle}>+1 (123)-456-7890</a></p>
         </div>
         <div>
-          <h2>Quick Links</h2>
+          <h3>Quick Links</h3>
           <ul style={listStyle}>
             <li>
               <QuickLinkButton to="/Help">Help</QuickLinkButton>
