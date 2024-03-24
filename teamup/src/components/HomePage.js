@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function HomePage(){
     return (
         <div style={makeBig}>
-  {/* <h1 className="heart">❤️</h1> */}
-  <h1 className="fadeIn" style={badasa}>Find a <span> Match </span></h1>  
-  <button style={buttonStyle}>Create Account </button>
+  <h1 
+  className="FadeIn" style={badasa}>
+    Find a <span> Match </span>
+    </h1>  
+  <Link to="/login"><button style={buttonStyle}>Create Account </button></Link>
 </div>
 
     )
@@ -38,7 +41,6 @@ const buttonStyle = {
     fontSize: '100px', // Changed to set font size to 48px
     textAlign: 'center', // Changed to center align text
     color: 'black', // Changed to black color
-    cursor: 'pointer', // Added to make the text clickable
   }
 
 export  default HomePage;

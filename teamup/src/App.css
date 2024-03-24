@@ -101,3 +101,58 @@
   left: 50%; /* Adjust horizontal position */
   transform: translate(-50%, -50%); /* Center heart icon */
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh; /* Use 100vh to make it take the full viewport height */
+  background-color: #F3E8E2;
+  padding: 33.5px;
+  box-sizing: border-box;
+}
+
+.fadeInTitle {
+  font-size: 4rem; /* Responsive font size */
+  text-align: center;
+  color: black;
+  animation: fadeIn 2s ease-in-out;
+  margin-bottom: 20px; /* Add some space below the title */
+}
+
+.highlight {
+  color: #D1510A; /* Make the 'Match' text stand out */
+}
+
+.createAccountButton {
+  align-self: center;
+  background-color: #D1510A;
+  font-size: 1.5rem;
+  color: white;
+  padding: 15px 45px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; 
+  border-radius: 40px;
+}
+
+.createAccountButton:hover {
+  background-color: #F57336; /* Lighter shade on hover */
+  color: #FFF;
+}
+
+/* Keyframes for fadeIn animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

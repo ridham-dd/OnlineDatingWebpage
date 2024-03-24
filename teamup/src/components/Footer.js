@@ -1,9 +1,9 @@
 import React from 'react';
-
+import QuickLinkButton from './QuickLinkButton'; // Import the button component
 
 function Footer() {
-    return (
-<footer style={footerStyle}>
+  return (
+    <footer style={footerStyle}>
       <div style={footerContentStyle}>
         <div>
           <h2>Contact Support</h2>
@@ -13,9 +13,15 @@ function Footer() {
         <div>
           <h2>Quick Links</h2>
           <ul style={listStyle}>
-            <li><a href="#">Help</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Team Members</a></li>
+            <li>
+              <QuickLinkButton to="/Help">Help</QuickLinkButton>
+            </li>
+            <li>
+              <QuickLinkButton to="/AboutUs">About Us</QuickLinkButton>
+            </li>
+            <li>
+              <QuickLinkButton to="/Teammembers">Team members</QuickLinkButton>
+            </li>
           </ul>
         </div>
       </div>
@@ -24,7 +30,10 @@ function Footer() {
 }
 
 const footerStyle = {
-  backgroundColor: 'black',
+  bottom: 0,
+  left: 0,
+  width: '100%',
+  backgroundColor: '#D1510A',
   color: 'white',
   padding: '20px',
 };
@@ -38,5 +47,5 @@ const listStyle = {
   listStyleType: 'none',
   padding: 0,
 };
-  
-  export default Footer;
+
+export default Footer;
