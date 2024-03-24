@@ -1,5 +1,6 @@
 import React from 'react';
 import TicTacToe from './TicTacToe';
+import NavBar from './NavBar';
 
 const gameStyle = {
     display: 'flex',
@@ -11,8 +12,11 @@ const gameStyle = {
 
 function playTicTacToe() {
     return (
+        <div>
+            <NavBar isLoggedIn={true} />
     <div style={gameStyle}>
   <TicTacToe />
+</div>
 </div>
     );
 
