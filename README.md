@@ -1,3 +1,21 @@
+## [Try it out](https://dreamy-kitsune-04165e.netlify.app/)
+
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
 # Inspiration
 Our project draws inspiration from the hackathon theme of clue by reimagining matchmaking through gaming. We believe traditional methods may overlook unconventional connections. By leveraging gaming and IQ, we aim to revolutionize how people are matched, tapping into unexplored avenues for meaningful connections.
 
@@ -25,3 +43,29 @@ css3, html5, javascript, npm, react
 ## [Try it out](https://dreamy-kitsune-04165e.netlify.app/)
 
 # Snapshots from the website
+### Home
+![Home page](teamup/src/assets/Images/Home.png)
+
+### About Us
+![About Us](teamup/src/assets/Images/AboutUs.png)
+
+### Chat
+![](teamup/src/assets/Images/Chat.png)
+
+### Games
+![](teamup/src/assets/Images/Games.png)
+
+### Login
+![](teamup/src/assets/Images/Login.png)
+
+### Signup
+![](teamup/src/assets/Images/Signup.png)
+
+### TicTacToe Game
+![](teamup/src/assets/Images/TicTacToe.png)
+
+### Help 
+![](teamup/src/assets/Images/help.png)
+
+### Profile
+![](teamup/src/assets/Images/profile.png)
