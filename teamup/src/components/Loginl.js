@@ -47,30 +47,45 @@ function Loginl() {
 
     addData();
 
-function authenticate(){
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].name === name && data[i].password === password) {
-            alert('Success');
-            navigate('/games', {
-                state: {
-                    name: nameG,
-                    password: passwordG,
-                    age: age,
-                    gender: gender,
-                    email: email,
-                    additionalInfo: additionalInfo,
-                    isLoggedIn: isLoggedIn
+async function authenticate(){
+    const data = {
+        email: name,      
+        password: password,
+    }
 
-                }
-            });
-            return;
-        } 
-}   
+    try{
+        const response  = await    fetch('http://localhost:3001/login', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify(data)
+           })
+           if (!response.ok) {
+               const data = await response.json();         
+               alert(data.message);
+               return;
+           } else{
+               const data = await response.json();              
+               alert(data.message);
+               navigate('/games', {
+                   state: {
+                       name: name,
+                       password: password,
+                       age: age,
+                       gender: gender,
+                       email: email,
+                       additionalInfo: additionalInfo,  
+                   }
+               });
+           }
 
-    alert('Wrong password');
-    // navigate('/');
-    return;
-}
+        
+        }  catch(error){
+            console.error('There was a problem with the fetch operation:', error);
+        };        
+
+    }
     
 
     const handleSubmit = (e) => {

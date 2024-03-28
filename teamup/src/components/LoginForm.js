@@ -69,6 +69,57 @@ function LoginForm() {
             state: { name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}
         });
     }
+
+    async function callBack(){
+
+        const data = {
+            email: email,
+            name: name,
+            additionalInfo: additionalInfo,
+            password: password,
+            age: age,
+            gender: gender,
+            otherG: sig_gender
+        }
+        try{
+
+        
+     const response  = await    fetch('http://localhost:3001/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        if (!response.ok) {
+            const data = await response.json();
+            
+            alert(data.message);
+            return;
+        } else{
+            const data = await response.json();
+            
+            alert(data.message);
+            navigate('/login', {
+                state: {
+                    name: name,
+                    password: password,
+                    age: age,
+                    gender: gender,
+                    email: email,
+                    additionalInfo: additionalInfo,
+                
+
+                }
+            });
+        }
+      
+        
+    }  catch(error){
+            console.error('There was a problem with the fetch operation:', error);
+        };        
+
+    }
     
 
     return (
@@ -108,20 +159,13 @@ function LoginForm() {
                 </div>
 
                 <div className="form-group" style={formGroupStyles}>
-    <label className="form-label" style={labelStyles}>Profile Image:</label>
-    <input 
-        className="form-input" 
-        type="file" 
-        onChange={(e) => setProfileImage(e.target.files[0])} 
-        style={{...inputStyles, marginLeft: '20px'}} 
-        required 
-    />
+    
 </div>
 
 
-                <Link to= "/login" state={{name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}} style={{ textDecoration: 'none' }}>
-                    <div className="form-button" style={buttonStyles}>Submit</div>
-                </Link>
+                {/* <Link to= "/login" state={{name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo}} onSubmit={callBack} style={{ textDecoration: 'none' }}> */}
+                    <button className="form-button" style={buttonStyles} onClick={callBack} >Submit</button>
+                {/* </Link> */}
             </form>
         </div>
         </div>
