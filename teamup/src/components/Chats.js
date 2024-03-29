@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
-
 const Chats = () => {
-    // Enhanced initial messages with timestamps
-    const location = useLocation();
-    const name = location.state.name;
-    const isLoggedIn = location.state.isLoggedIn;
-    
-    
-    console.log(name);
-    // alert(name);
-    const initialMessages = {
+    const navigate = useNavigate();
+    const [name, setName] = useState("Mahesh");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); // Introduce loading state
+
+    let initialMessages = {
         'Alice': [
             { text: `Hi,  how are you?`, timestamp: '2024-03-24 09:00', sender: 'Alice' },
             { text: 'What are you doing this weekend?', timestamp: '2024-03-24 09:01', sender: 'Alice' },
@@ -32,7 +28,61 @@ const Chats = () => {
 
     const [messages, setMessages] = useState(initialMessages);
     const [newMessage, setNewMessage] = useState('');
-    const [currentUser, setCurrentUser] = useState('Alice'); // Default to the first user
+    const [currentUser, setCurrentUser] = useState('Alice');
+
+    useEffect(() => {
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            setIsLoggedIn(true);
+            getData(jwt);
+        } else {
+            navigate('/login');
+        }
+    }, [navigate]);
+
+    useEffect(() => {
+        // Trigger re-render when 'name' state changes
+        updateMessagesWithNewName();
+    }, [name]);
+
+    async function getData(jwt){
+        try {
+            const response  = await fetch('http://localhost:3001/verify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authentication': jwt
+                }
+            });
+            if (!response.ok) {
+                alert("Some issue with backend");
+                return;
+            } else {
+                const data = await response.json();
+                setName(data.data.name);
+            }
+        } catch(e) {
+            alert("Internal Server Error, Try again");
+            navigate('/');
+        } finally {
+            setIsLoading(false); // Set loading state to false after data retrieval
+        }
+    }
+
+    const updateMessagesWithNewName = () => {
+        // Update sender names in messages with the new name
+        const updatedMessages = Object.keys(messages).reduce((acc, key) => {
+            const updatedMessagesForUser = messages[key].map(message => {
+                if (message.sender === 'Mahesh') {
+                    return { ...message, sender: name };
+                }
+                return message;
+            });
+            acc[key] = updatedMessagesForUser;
+            return acc;
+        }, {});
+        setMessages(updatedMessages);
+    };
 
     const sendMessage = () => {
         if (!currentUser || !newMessage.trim()) return;
@@ -78,7 +128,6 @@ const Chats = () => {
         display: 'flex',
         flexDirection: 'column',
         padding: '10px',
-        // backgroundColor: 'gray'
     };
 
     const chatBoxStyle = {
@@ -115,57 +164,60 @@ const Chats = () => {
         fontWeight: 'bold',
     };
 
+    if (isLoading) {
+        // Render a loading indicator until data is loaded
+        return <div>Loading...</div>;
+    }
+
+    // Once loading is complete, render the rest of the component
     return (
         <div>
-            <NavBar isLoggedIn = {true} />
-        <div style={layoutStyle}>
-            <div style={userListStyle}>
-                {Object.keys(messages).map((user) => (
-                    <div key={user} onClick={() => selectUser(user)} style={{ ...messageStyle, backgroundColor: currentUser === user ? '#ddd' : '#f0f0f0' }}>
-                        {user}
+            <NavBar isLoggedIn={isLoggedIn} />
+            <div style={layoutStyle}>
+                <div style={userListStyle}>
+                    {Object.keys(messages).map((user) => (
+                        <div key={user} onClick={() => selectUser(user)} style={{ ...messageStyle, backgroundColor: currentUser === user ? '#ddd' : '#f0f0f0' }}>
+                            {user}
+                        </div>
+                    ))}
+                </div>
+                <div style={chatStyle}>
+                    <div style={{backgroundColor: '#848c91'}}>
+                        <h2>Chat with {currentUser}</h2>
                     </div>
-                ))}
-            </div>
-            <div style={chatStyle}>
-                <div style={{backgroundColor: '#848c91'}}>
-                <h2>Chat with {currentUser}</h2>
+                    <div style={chatBoxStyle}>
+                        {messages[currentUser] && messages[currentUser].map((message, index) => (
+                            <div key={index} style={{ ...messageStyle, textAlign: message.sender === name ? 'right' : 'left',backgroundColor:'#F3E8E2'}}>
+                                <div style={{ 
+                                    display: 'inline-block',
+                                    backgroundColor: message.sender === name ? '#D1510A' : '#848c91',
+                                    padding: '5px',
+                                    borderRadius: '10px',
+                                 }}>
+                                    <div style={senderStyle}>{message.sender}</div>
+                                    <div>{message.text}</div>
+                                    <div style={timestampStyle}>{message.timestamp}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <input
+                        type="text"
+                        value={newMessage}
+                        onChange={handleInputChange}
+                        onKeyDown={(event) => {
+                            if (event.key === 'Enter') {
+                                sendMessage();
+                            }
+                        }}
+                        style={inputStyle}
+                        placeholder="Type a message..."
+                    />
+                    <button onClick={sendMessage} style={buttonStyle}>Send</button>
                 </div>
-                <div style={chatBoxStyle}>
-                    {messages[currentUser] && messages[currentUser].map((message, index) => (
-                        <div key={index} style={{ ...messageStyle, textAlign: message.sender === name ? 'right' : 'left',backgroundColor:'#F3E8E2'}}>
-                            
-                            <div style={{ 
-                                display: 'inline-block', // This makes the div wrap around the content
-                                backgroundColor: message.sender === name ? '#D1510A' : '#848c91', // Background color
-                                padding: '5px', // Add some padding around the text
-                                borderRadius: '10px', // Optional: adds rounded corners for a chat bubble look
-                             }}>
-
-<div style={senderStyle}>{message.sender}</div>
-            <div>{message.text}</div>
-            <div style={timestampStyle}>{message.timestamp}</div>
-        </div>
-    </div>
-))}
-                </div>
-                <input
-                    type="text"
-                    value={newMessage}
-                    onChange={handleInputChange}
-                    onKeyDown={(event) => {
-                        if (event.key === 'Enter') {
-                            sendMessage();
-                        }
-                    }}
-                    style={inputStyle}
-                    placeholder="Type a message..."
-                />
-
-                <button onClick={sendMessage} style={buttonStyle}>Send</button>
             </div>
-        </div>
         </div>
     );
-                    }
-export default Chats;
+};
 
+export default Chats;

@@ -11,28 +11,76 @@ import tetrisImg from '../assets/tetris-logo.png';
 import tictactoe from '../assets/TicTacToe.jpeg';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from './NavBar';
 
 
 
 
 const GamesPage = () => {
-    const location = useLocation();
-    // Check if name is blank or empty and set to "Default User" if it is
-    const name = location.state?.name?.trim() ? location.state.name : "Default User";
-    const age = location.state?.age;
-    const gender = location.state?.gender;
-    const email = location.state?.email;
-    const password = location.state?.password;
-    const additionalInfo = location.state?.additionalInfo;
-    const isLoggedIn = location.state.isLoggedIn;
-    console.log(location.state);
+
+    const navigate = useNavigate();
+    const [name, setName] = useState("Default User");
+    const [age, setAge] = useState("20");
+    const [gender, setGender] = useState("male");
+    const [email, setEmail] = useState("abc@gmail.com");
+    const [additionalInfo, setAdditionalInfo] = useState("Default User is a good user");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const [isHoveredA, setIsHoveredA] = useState(false);
     const [isHoveredB, setIsHoveredB] = useState(false);
 
-   
+
+    useEffect(() => {
+        // Check if user is authenticated
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            setIsLoggedIn(true); // User is logged in
+            // alert(jwt);
+            getData(jwt);
+        } else {
+            // Redirect to login page or handle unauthorized access
+            navigate('/login'); // Redirect to login page
+            // Alternatively, you can display a message indicating unauthorized access
+            // console.log("Unauthorized access");
+        }
+    }, [navigate]);
+    
+    
+    async function getData(jwt){
+        try{
+            console.log(jwt);
+            const response  = await    fetch('http://localhost:3001/verify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authentication': jwt
+                }
+            })
+            if (!response.ok) {
+                const data = await response.json();       
+                // alert(data.message);
+                return;
+            } else{
+                const info = await response.json();  
+                const data = info.data;
+                console.log(data);
+                setName(data.name);
+                setAge(data.age);
+                setAdditionalInfo(data.bio);
+                setEmail(data.email);
+                setGender(data.gender);
+                setIsLoggedIn(true);
+                
+            }
+        } catch(e){
+            alert("Internal Server Error, Try again");
+            navigate('/');
+        }
+        
+    }
+
+
     
     const gameContainerStyle = {
         display: 'grid',
@@ -73,25 +121,18 @@ const GamesPage = () => {
         height: '80px', // Adjust size as needed
         marginBottom: '5px',
     };
-    const navigate = useNavigate();
     
     function handleClick() {
-        navigate("/profile",
-        {
-            state: { name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo, isLoggedIn: isLoggedIn}
-        });
+        navigate("/profile");
     }
 
     function handleClick2() {
-        navigate("/chats",
-        {
-            state: { name: name, isLoggedIn: isLoggedIn}
-        });
+        navigate("/chats");
     }
 
     return (
         <div>
-            <NavBar isLoggedIn = {true} />
+            <NavBar isLoggedIn = {isLoggedIn} />
         <div style={baap}>
             
             <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '33%', marginLeft: '33%', marginBottom: '30px'}}>
@@ -128,7 +169,10 @@ const GamesPage = () => {
             </div>
 
             <div style={{ fontFamily: 'Arial, sans-serif' }}>
-                <h1 style={headingStyle}>Hello, {location.state.name}! Choose a Game to Begin.</h1>
+                {/* <div>
+                    {jwt}
+                </div> */}
+                <h1 style={headingStyle}>Hello, {name}! Choose a Game to Begin.</h1>
 
                 <div style={gameContainerStyle}>
                     <div style={gameStyle}>

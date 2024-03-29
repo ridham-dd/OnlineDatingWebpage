@@ -4,8 +4,19 @@ import Ridham from '../assets/ridham.jpeg';
 import Santosh from '../assets/santosh.jpeg';
 import Vansh from '../assets/Vansh.jpeg';
 import NavBar from './NavBar';
+import { useEffect, useState } from 'react';
 
 function MeetTheTeam() {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    useEffect(() => {
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            setIsLoggedIn(true); 
+          
+        } 
+    }, []);
+
     const imgStyle = {
         width: '200px',
         height: '200px',
@@ -22,7 +33,7 @@ function MeetTheTeam() {
 
     return (
         <div>
-            <NavBar isLoggedIn={false} />
+            <NavBar isLoggedIn={isLoggedIn} />
         
         <div style={teamPageStyle}>
             <h1 className="fadeIn" style={titleStyle}>Meet the Team</h1>

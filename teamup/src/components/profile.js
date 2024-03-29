@@ -2,9 +2,70 @@ import React from 'react';
 import profile from '../assets/blank.jpeg';
 import { useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 
 
 const Profile = () => {
+    const navigate = useNavigate();
+    const [name, setName] = useState("Default User");
+    const [age, setAge] = useState("20");
+    const [gender, setGender] = useState("male");
+    const [email, setEmail] = useState("abc@gmail.com");
+    const [bio, setBio] = useState("Default User is a good user");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+
+    useEffect(() => {
+        // Check if user is authenticated
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            setIsLoggedIn(true); // User is logged in
+            // alert(jwt);
+            getData(jwt);
+        } else {
+            // Redirect to login page or handle unauthorized access
+            navigate('/login'); // Redirect to login page
+            // Alternatively, you can display a message indicating unauthorized access
+            // console.log("Unauthorized access");
+        }
+    }, [navigate]);
+    
+    
+    async function getData(jwt){
+        try{
+            // console.log(jwt);
+            const response  = await    fetch('http://localhost:3001/verify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authentication': jwt
+                }
+            })
+            if (!response.ok) {
+                const data = await response.json();       
+                // alert(data.message);
+                return;
+            } else{
+                const info = await response.json();  
+                const data = info.data;
+                console.log(data);
+                setName(data.name);
+                setAge(data.age);
+                setBio(data.bio);
+                setEmail(data.email);
+                setGender(data.gender);
+                setIsLoggedIn(true);
+                
+            }
+        } catch(e){
+            alert("Internal Server Error, Try again");
+            navigate('/');
+        }
+        
+    }
     // Replace the following variables with actual user information
     // const name = 'John Doe';
     // const age = 25;
@@ -12,14 +73,7 @@ const Profile = () => {
     // const bio = 'I love playing poker';
     // const gender = 'Male'
     // const email = 'xyz@gmail.com';
-    const location = useLocation();
-    console.log(location.state);
-    const name = location.state.name;
-    const age = location.state.age;
-    const gender = location.state.gender;
-    const email = location.state.email;
-    const bio = location.state.additionalInfo;
-    const isLoggedIn = location.state.isLoggedIn;
+
     
 
     return (

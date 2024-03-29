@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
 
@@ -6,6 +6,15 @@ function Help() {
     const [name, setName] = useState('');
     const [Dateofissue, setDateofissue] = useState('');
     const [Concern, setConcern] = useState('');
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    useEffect(() => {
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            setIsLoggedIn(true); 
+          
+        } 
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -57,7 +66,7 @@ function Help() {
 
     return (
         <div>
-            <NavBar isLoggedIn={true} />
+            <NavBar isLoggedIn={isLoggedIn} />
         <div className="form-container" style={formContainerStyles}>
             <h1>Help</h1>
             <form className="login-form" onSubmit={handleSubmit}>

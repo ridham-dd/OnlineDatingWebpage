@@ -13,39 +13,8 @@ function Loginl() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false); // State to toggle password visibility
     const navigate = useNavigate();
     
-    const location = useLocation();
-    // Check if name is blank or empty and set to "Default User" if it is
-    const nameG = location.state.name;
-    const age = location.state.age;
-    const gender = location.state.gender;
-    const email = location.state.email;
-    const passwordG = location.state.password;
-    const additionalInfo = location.state.additionalInfo;
-    const isLoggedIn = true;
 
   
-
-    const data = [ 
-        {
-            name: "Santosh",
-            password: "780537"
-        },
-        {
-            name: "xyz",
-            password: "random"
-        }
-     ];
-
-     function addData(){
-        if(nameG.length>1 && passwordG.length>1){
-            data.push({
-                name: nameG,
-                password: passwordG
-            })
-        }
-    }
-
-    addData();
 
 async function authenticate(){
     const data = {
@@ -66,18 +35,11 @@ async function authenticate(){
                alert(data.message);
                return;
            } else{
-               const data = await response.json();              
-               alert(data.message);
-               navigate('/games', {
-                   state: {
-                       name: name,
-                       password: password,
-                       age: age,
-                       gender: gender,
-                       email: email,
-                       additionalInfo: additionalInfo,  
-                   }
-               });
+            const { token } = await response.json();           
+               alert(token);
+               localStorage.setItem('jwt', token);
+            // console.log(token);
+               navigate('/');
            }
 
         
