@@ -47,7 +47,10 @@ function NavBar({ isLoggedIn, handleLogout }) {
           {/* <button onClick={handleLogout} style={buttonStyles}>Log Out</button> */}
           <Link to="/chats" state={{name: name, age: age, gender: gender, email: email, password: password, additionalInfo: additionalInfo, isLoggedIn: true}}><button style={buttonStyles}>Chats</button></Link> 
           {/* <LogoutButton/> */}
-          <Link to="/"><button style={buttonStyles}>Log Out</button></Link> 
+          <Link to="/"><button style={buttonStyles} onClick={function(){
+            localStorage.removeItem('jwt');
+            window.location.reload();
+          }}>Log Out</button></Link> 
         </div>
       ) : (
         <Link to="/login" state={{name: "user", age: "10", gender: "f", email: "xyz@gmil.com", password: "123", additionalInfo: "zxxx"}} style={{ textDecoration: 'none' }}><button style={buttonStyles}>Log In </button></Link>
