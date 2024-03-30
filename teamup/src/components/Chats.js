@@ -47,7 +47,7 @@ const Chats = () => {
 
     async function getData(jwt){
         try {
-            const response  = await fetch('http://localhost:3001/verify', {
+            const response  = await fetch('https://matchupbackend.vercel.app/verify', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

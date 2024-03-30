@@ -23,7 +23,7 @@ async function authenticate(){
     }
 
     try{
-        const response  = await    fetch('http://localhost:3001/login', {
+        const response  = await    fetch('https://matchupbackend.vercel.app/login', {
                method: 'POST',
                headers: {
                    'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ async function authenticate(){
                return;
            } else{
             const { token } = await response.json();           
-               alert(token);
+            //    alert(token);
                localStorage.setItem('jwt', token);
             // console.log(token);
                navigate('/');
