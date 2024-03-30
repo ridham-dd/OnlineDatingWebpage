@@ -84,7 +84,7 @@ function LoginForm() {
         try{
 
         
-     const response  = await    fetch('http://localhost:3001/signup', {
+     const response  = await    fetch('https://matchupbackend.vercel.app/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
