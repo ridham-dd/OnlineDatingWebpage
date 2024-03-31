@@ -105,7 +105,7 @@ async function authenticate(){
         <div>
             <NavBar isLoggedIn={false} />
         <div className="form-container" style={formContainerStyles}>
-            <h1>Welcome! Log In</h1>
+            <h1>Welcome! Log in</h1>
             <form className="login-form">
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Email:</label>
@@ -144,7 +144,14 @@ async function authenticate(){
                         {isPasswordVisible ? 'Hide' : 'Show'}
                     </button>
                 </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button type="submit" style={buttonStyles} onClick={handleSubmit}>Submit</button>
+                <div style={{ marginLeft: '10px' }} /> {/* Spacer */}
+                {/* Button to redirect to signup page */}
+                <Link to="/signup">
+                        <button style={buttonStyles}> Or Sign Up</button>
+                    </Link>
+                </div>
             </form>
         </div>
         </div>

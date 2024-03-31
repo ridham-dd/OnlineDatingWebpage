@@ -6,25 +6,33 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
 function LoginForm() {
+    //const defaultImageURL = "../assets/blank.jpeg";
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
     const [sig_gender, setSigGender] = useState('');
+    const [otherGender, setOtherGender] = useState('');
+    const [otherSigGender, setOtherSigGender] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
-    const [profileImage, setProfileImage] = useState(null);
+    const [profileImage, setProfileImage] = useState(); // add defaultImageURL in the parenthesis after uncommenting the top thing
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission here (e.g., submit data to backend)
-        console.log('Form submitted:', { name, age, gender, email, password, additionalInfo });
+        console.log('Form submitted:', { name, age, gender, email, password, additionalInfo});
         // 3. Pass data as state when navigating
         // history.push('/games', { name, age, gender, email, password, additionalInfo });
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0]; // Get the selected file
+        setProfileImage(file); // Set the selected file as the profileImage state
+      };
+
     const formContainerStyles = {
-        width: '600px',
+        width: '800px',
         margin: '0 auto',
         textAlign: 'center',
         backgroundColor: '#F3E8E2',
@@ -137,16 +145,8 @@ function LoginForm() {
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Age:</label>
-                    <input className="form-input"  type="text" value={age} onChange={(e) => setAge(e.target.value)} style={{...inputStyles, marginLeft: '74px'}} placeholder= "Enter your age" required />
+                    <input className="form-input"  type="number" value={age} onChange={(e) => setAge(e.target.value)} min = {18} max = {100} style={{...inputStyles, marginLeft: '74px'}} placeholder= "Enter your age" required />
                 </div>
-                <div className="form-group" style={formGroupStyles}>
-                    <label className="form-label" style={labelStyles}>Your Gender:</label>
-                    <input className="form-input"  type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{...inputStyles, marginLeft: '42px'}} placeholder= "Enter your gender" required />
-                </div>
-                {/* <div className="form-group" style={formGroupStyles}>
-                    <label className="form-label" style={labelStyles}>Preferred Partner's gender:</label>
-                    <input className="form-input"  type="text" value={sig_gender} onChange={(e) => setSigGender(e.target.value)} style={{...inputStyles}} placeholder= "Enter gender of the player you want to match with" required/>
-                </div> */}
                 <div className="form-group" style={formGroupStyles}>
                         <label className="form-label" style={labelStyles}>Your Gender:</label>
                         <select className="form-input" value={gender} onChange={(e) => setGender(e.target.value)} style={{ ...inputStyles, marginLeft: '10px' }} required>
@@ -156,14 +156,41 @@ function LoginForm() {
                             <option value="Non-binary">Non-binary</option>
                             <option value="Other">Other</option>
                         </select>
-                    </div>
+                        {/* Text field if 'other' is selected*/}
+                        {gender === "Other" && (
+                            <input type="text" value={otherGender} onChange={(e) => setOtherGender(e.target.value)} style={{ ...inputStyles, marginLeft: '10px' }} placeholder="Please specify" required />
+                        )}
+                </div>
+                <div className="form-group" style={formGroupStyles}>
+                        <label className="form-label" style={labelStyles}>Preferred Partner's Gender:</label>
+                        <select className="form-input" value={sig_gender} onChange={(e) => setSigGender(e.target.value)} style={{ ...inputStyles, marginLeft: '10px' }} required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Non-binary">Non-binary</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        {/* Text field if 'other' is selected*/}
+                        {sig_gender === "Other" && (
+                            <input type="text" value={otherSigGender} onChange={(e) => setOtherSigGender(e.target.value)} style={{ ...inputStyles, marginLeft: '10px' }} placeholder="Please specify" required />
+                        )}
+                </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Email:</label>
                     <input className="form-input"  type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{...inputStyles, marginLeft: '60px'}} placeholder= "Enter your email" required />
                 </div>
-                <div className="form-group" style={formGroupStyles}>
-                    <label className="form-label" style={labelStyles}>Image:</label>
-                    <input className="form-input"  type= "profileImage" value={profileImage} onChange={(e) => setProfileImage(e.target.value)} style={{...inputStyles, marginLeft: '25px'}} placeholder= "Enter your profile image" required />
+                 <div className="form-group" style={formGroupStyles}>
+                    <label className="form-label" htmlFor='image' style={labelStyles}>Image:</label>
+                    <input 
+                        className="form-input" 
+                        id = 'image' 
+                        type= "file" 
+                        accept="image/*"  
+                        value={profileImage} 
+                        onChange={handleImageChange} 
+                        style={{...inputStyles, marginLeft: '25px'}} 
+                        placeholder= "Enter your profile image" 
+                        />
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Password:</label>

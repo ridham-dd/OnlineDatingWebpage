@@ -1,6 +1,5 @@
 {
-  "homepage": "http://ridhamdd.github.io/",
-  "name": "teamup",
+ "name": "teamup",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
