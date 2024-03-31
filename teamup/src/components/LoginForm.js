@@ -137,19 +137,33 @@ function LoginForm() {
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Age:</label>
-                    <input className="form-input"  type="number" value={age} onChange={(e) => setAge(e.target.value)} style={{...inputStyles, marginLeft: '74px'}} placeholder= "Enter your age" required />
+                    <input className="form-input"  type="text" value={age} onChange={(e) => setAge(e.target.value)} style={{...inputStyles, marginLeft: '74px'}} placeholder= "Enter your age" required />
                 </div>
                 <div className="form-group" style={formGroupStyles}>
-                    <label className="form-label" style={labelStyles}>Gender:</label>
+                    <label className="form-label" style={labelStyles}>Your Gender:</label>
                     <input className="form-input"  type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{...inputStyles, marginLeft: '42px'}} placeholder= "Enter your gender" required />
                 </div>
-                <div className="form-group" style={formGroupStyles}>
-                    <label className="form-label" style={labelStyles}>Gender of player:</label>
+                {/* <div className="form-group" style={formGroupStyles}>
+                    <label className="form-label" style={labelStyles}>Preferred Partner's gender:</label>
                     <input className="form-input"  type="text" value={sig_gender} onChange={(e) => setSigGender(e.target.value)} style={{...inputStyles}} placeholder= "Enter gender of the player you want to match with" required/>
-                </div>
+                </div> */}
+                <div className="form-group" style={formGroupStyles}>
+                        <label className="form-label" style={labelStyles}>Your Gender:</label>
+                        <select className="form-input" value={gender} onChange={(e) => setGender(e.target.value)} style={{ ...inputStyles, marginLeft: '10px' }} required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Non-binary">Non-binary</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Email:</label>
                     <input className="form-input"  type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{...inputStyles, marginLeft: '60px'}} placeholder= "Enter your email" required />
+                </div>
+                <div className="form-group" style={formGroupStyles}>
+                    <label className="form-label" style={labelStyles}>Image:</label>
+                    <input className="form-input"  type= "profileImage" value={profileImage} onChange={(e) => setProfileImage(e.target.value)} style={{...inputStyles, marginLeft: '25px'}} placeholder= "Enter your profile image" required />
                 </div>
                 <div className="form-group" style={formGroupStyles}>
                     <label className="form-label" style={labelStyles}>Password:</label>

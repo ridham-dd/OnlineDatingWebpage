@@ -108,14 +108,14 @@ async function authenticate(){
             <h1>Welcome! Log In</h1>
             <form className="login-form">
                 <div className="form-group" style={formGroupStyles}>
-                    <label className="form-label" style={labelStyles}>Name:</label>
+                    <label className="form-label" style={labelStyles}>Email:</label>
                     <input
                         className="form-input"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         style={{...inputStyles, marginLeft: '35px'}}
-                        placeholder="Enter your name"
+                        placeholder="Enter your email"
                         required
                     />
                 </div>
