@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7c1d0f39.css",
+    "main.js": "/static/js/main.ad56146c.js",
+    "static/js/453.ee9f585e.chunk.js": "/static/js/453.ee9f585e.chunk.js",
+    "static/media/TypeRacer_logosvg.png": "/static/media/TypeRacer_logosvg.137970ac0c1d9a87b947.png",
+    "static/media/tetris-logo.png": "/static/media/tetris-logo.a6aa0a47945002183048.png",
+    "static/media/Naysha.jpeg": "/static/media/Naysha.3427072e1d3f7756a1b9.jpeg",
+    "static/media/Homee.png": "/static/media/Homee.851a25d70cdb07214dca.png",
+    "static/media/Vansh.jpeg": "/static/media/Vansh.159baa9305b448da0767.jpeg",
+    "static/media/TicTacToe.jpeg": "/static/media/TicTacToe.55bf561d2d277f1d24fd.jpeg",
+    "static/media/ridham.jpeg": "/static/media/ridham.0e897ff8b6c69d15ac3e.jpeg",
+    "static/media/santosh.jpeg": "/static/media/santosh.cacfa50a6df73aa70371.jpeg",
+    "static/media/scrabble.png": "/static/media/scrabble.aba70c7046e12cbe6ad1.png",
+    "static/media/chess.png": "/static/media/chess.026b5b8ff047fd3c790f.png",
+    "static/media/blank.jpeg": "/static/media/blank.3f1bf0d024070296be72.jpeg",
+    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/index.html",
+    "main.7c1d0f39.css.map": "/static/css/main.7c1d0f39.css.map",
+    "main.ad56146c.js.map": "/static/js/main.ad56146c.js.map",
+    "453.ee9f585e.chunk.js.map": "/static/js/453.ee9f585e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7c1d0f39.css",
+    "static/js/main.ad56146c.js"
+  ]
+}
